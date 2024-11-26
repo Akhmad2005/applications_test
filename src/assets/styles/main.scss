@@ -1,0 +1,31 @@
+@use 'mixins';
+@use 'pages';
+@use 'variables';
+@use 'conflict';
+@use 'components';
+
+* {
+  box-sizing: border-box;
+  font-family: "Gilroy", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul {
+  padding: 0;
+  margin: 0;
+}
+
+ul {
+  @include mixins.free-ul;
+}
+
+.link{
+  cursor: pointer;
+}
+  

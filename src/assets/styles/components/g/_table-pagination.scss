@@ -1,0 +1,26 @@
+.g-table-pagination{
+	padding: 8px 8px;
+	.double-icon{
+		font-size: 10px;
+		cursor: pointer;
+		&.disabled{
+			cursor: not-allowed;
+			color: rgba(0, 0, 0, 0.25);
+		}
+		&:hover, &:focus{
+			color: var(--color-primary-light);
+		}
+	}
+	&-total{
+		color: var(--color-text);
+	}
+	&-change_size{
+		width: 90px;
+		.ant-select-selection{
+			height: 40px;
+			.ant-select .ant-select-selection--single .ant-select-selection-selected-value{
+				font-size: 14px;
+			}
+		}
+	}
+}

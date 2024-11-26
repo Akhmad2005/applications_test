@@ -1,0 +1,504 @@
+@use '../mixins/index.scss' as mixins;
+
+
+.ant-select .ant-select-selection--single .ant-select-selection__placeholder {
+  display: block;
+}
+
+.ant-form-item.active
+  .ant-select
+  .ant-select-selection--single
+  .ant-select-selection__placeholder {
+  display: none !important;
+}
+
+.ant {
+  &-form {
+    &-item {
+      margin-bottom: 0;
+
+      .ant-checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        margin-top: 16px;
+      }
+
+      .ant-checkbox + span {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 18px;
+        letter-spacing: 0.1px;
+        color: #686868;
+      }
+
+      &-children {
+        display: block;
+        position: relative;
+
+        textarea {
+          min-height: 120px;
+        }
+
+        input {
+          display: block;
+        }
+      }
+
+      &-label {
+        line-height: unset;
+        margin-bottom: 8px;
+
+        label {
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 150%;
+          letter-spacing: 0.1px;
+          color: #484848;
+          display: block;
+        }
+      }
+
+      .has-error{
+        .ant-select-focused{
+          .ant-select-selection{
+            box-shadow: none;
+          }
+        }
+        .ant-select-selection{
+          border-bottom: 1px solid var(--color-danger);
+        }
+        .ant-input{
+          &:focus{
+            box-shadow: none;
+          }  
+        }
+      }
+    }
+  }
+
+  &-input {
+		border: none;
+		border-radius: 0;
+		border-bottom: 1px solid var(--color-border);
+    font-weight: 500;
+    height: 56px;
+    letter-spacing: 0.1px;
+		font-size: 14px;
+		padding: 9px 0;
+		color: var(--color-text);
+		&-affix-wrapper{
+			.ant-input{
+				&:not(:first-child){
+					padding-left: 38px;
+				}
+			}
+			.ant-input-prefix{
+				left: 5px;
+			}
+			&:hover{
+				.ant-input{
+					&:not(.ant-input-disabled){
+						border-color: var(--color-border);
+					}
+				}
+			}
+		}
+    &::placeholder {
+			font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.1px;
+      color: var(--color-placeholder);
+      transition: all 0.3s ease-in-out;
+    }
+
+    &:focus, &:hover{
+			box-shadow: none;
+			border-bottom: 1px solid var(--color-border);
+    }
+
+    @include mixins.devices(sm) {
+      height: 42px;
+      padding: 0 8px;
+    }
+  }
+
+  &-form {
+    &-item {
+      &.active {
+        .ant-my {
+          &-placeholder {
+            opacity: 1;
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+
+	&-btn{
+		border-radius: 4px;
+		padding: 8px 35px;
+		height: unset;
+		&-primary{
+			background-color: var(--color-primary-light);
+			border-color: var(--color-primary-light);
+			&:active, &:hover, &:focus{
+				background-color: var(--color-primary-light);
+				border-color: var(--color-primary-light);
+			}
+		}
+	}
+
+  // .ant-select
+  &-select {
+    display: block;
+    
+    .ant-select-selection--single {
+      border: 0;
+      border-radius: 0px;
+      border-bottom: 1px solid var(--color-border);
+      box-shadow: unset;
+      height: 56px;
+      display: flex;
+      align-items: center;
+
+      .ant-select-selection__placeholder {
+        font-weight: 400;
+        font-size: 16px;
+        letter-spacing: 0.1px;
+        color: var(--color-placeholder);
+      }
+
+      .ant-select-selection-selected-value {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 150%;
+        letter-spacing: 0.1px;
+        color: #212121;
+      }
+
+      .ant-select-selection__rendered {
+        line-height: unset;
+        width: 100%;
+        margin: 0;
+        padding: 0 32px 0 0px;
+      }
+    }
+    &-dropdown-menu-item{
+      &-active{
+        &:not(.ant-select-dropdown-menu-item-disabled){
+          background-color: var(--color-hover);
+        }
+        &:hover:not(.ant-select-dropdown-menu-item-disabled){
+          background-color: var(--color-hover);
+        }
+      }
+    }
+    &-arrow{
+      margin-top: 0;
+      transform: translateY(-50%);
+    }
+    &-disabled{
+      .ant-select-selection{
+        // background-color: unset;
+      }
+    }
+  }
+
+  &-my {
+    &-show-eye {
+      position: absolute;
+      top: 50%;
+      right: 14px;
+      transform: translateY(-50%);
+    }
+
+    &-placeholder {
+      position: absolute;
+      top: 0;
+      left: 9px;
+      transform: translateY(-50%);
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 150%;
+      letter-spacing: 0.1px;
+      color: var(--color-primary-light);
+      background-color: var(--color-white);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease-in-out;
+			&.with_prefix{
+				left: 38px;
+			}
+    }
+  }
+  &-spin{
+    &-dot{
+      &-item{
+        background-color: var(--color-primary-light);
+      }
+    }
+  }
+  &-tag{
+    padding: 4px 14.5px;
+  }
+  &-table{
+    &-column{
+      &-title{
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        color: var(--color-primary-light);
+      }
+    }
+    &-thead{
+      tr {
+        th{
+          padding: 12px 8px;
+        }
+      } 
+    }
+    &-tbody{
+      tr {
+        td{
+          padding: 19px 8px;
+          color: var(--color-text);
+          font-size: 14px;
+          font-weight: 400;
+          line-height: 20px;
+          &.tag-column{
+            padding: 15px 4px;
+          }
+        }
+        &:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected){
+          td{
+            background-color: var(--color-hover);
+          }
+        }
+      } 
+    }
+  }
+  &-pagination{
+    &-item{
+      border: none;
+      @include mixins.flex-center;
+      display: inline-flex;
+      &-active{
+        background-color: var(--color-primary-light);
+        border-radius: 50%;
+        width: 32px;
+        @include mixins.flex-center;
+        display: inline-flex;
+        a{
+          color: var(--color-white);
+        }
+        &:hover, &:focus{
+          a{
+            color: var(--color-white) !important;
+          }
+        }
+      }
+      &:hover, &:focus{
+        a{
+          color: var(--color-primary-light);
+        }
+      }
+    }
+    &-prev, &-next{
+      .ant-pagination-item-link{
+        border: none;
+        .anticon{
+          font-size: 10px;
+        }
+      }
+      &:hover, &:focus{
+        .ant-pagination-item-link{
+          color: var(--color-primary-light);
+        }
+      }
+    }
+  }
+  &-calendar {
+    a{
+      color: var(--color-primary-light);
+      &:hover{
+        color: var(--color-primary-light);
+      }
+    }
+    & &-ok-btn{
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+      &:hover, &:active, &:focus{
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+      }
+    }
+    &-date{
+      &:hover, &:active{
+        background: var(--color-hover);
+      }
+    }
+    &-picker{
+      &:hover{
+        .ant-calendar-picker-input:not(.ant-input-disabled){
+          border-color: var(--color-border);
+        }
+      }
+    }
+    &-selected-day{
+      .ant-calendar-date{
+        background-color: var(--color-hover);
+      }
+    }
+    &-today{
+      .ant-calendar-date{
+        color: var(--color-primary-light);
+        border-color: var(--color-primary-light);
+      }
+    }
+    &-time{
+      &-picker{
+        &-select{
+          li{
+            &:hover{
+              background-color: var(--color-hover);
+            }
+            &:focus{
+              color: var(--color-primary-light);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// .ant-modal {
+//   &-close {
+//     // display: none;
+//   }
+
+//   .custom-close {
+//     cursor: pointer;
+//   }
+
+//   &-body {
+//     padding: 24px;
+//     border-radius: 8px;
+//   }
+
+//   &-mask {
+//     background: rgba(0, 0, 0, 0.3);
+//     backdrop-filter: blur(3px);
+//   }
+//   @include devices(sm) {
+//     max-width: calc(100vw - 32px);
+//     &-body {
+//       padding: 12px;
+//     }
+//   }
+// }
+
+// .ant-popover {
+//   &-content {
+//     max-width: 540px;
+//     background: #ffffff;
+//     border: 1px solid #c5d4e0;
+//     box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.08);
+//     border-radius: 4px;
+
+//     @include devices(lg) {
+//       max-width: 450px;
+//     }
+
+//     @include devices(sm) {
+//       max-width: 300px;
+//     }
+//   }
+
+//   &-arrow {
+//     display: none;
+//   }
+
+//   &-inner {
+//     padding: 20px;
+//     position: relative;
+
+//     @include devices(lg) {
+//       padding: 16px;
+//     }
+//     @include devices(sm) {
+//       padding: 12px;
+//     }
+
+//     &-content {
+//       padding: 0;
+
+//       .svg {
+//         position: absolute;
+//         top: 20px;
+//         right: 20px;
+//         cursor: pointer;
+
+//         @include devices(lg) {
+//           top: 16px;
+//           right: 16px;
+//         }
+//       }
+
+//       p {
+//         font-weight: 400;
+//         font-size: 20px;
+//         line-height: 150%;
+//         margin: 0;
+
+//         @include devices(lg) {
+//           font-size: 18px;
+//         }
+
+//         @include devices(md) {
+//           font-size: 15px;
+//         }
+
+//         &:not(:last-child) {
+//           padding: 20px 0 24px 0;
+
+//           @include devices(md) {
+//             padding: 16px 0 20px 0;
+//           }
+
+//           @include devices(sm) {
+//             padding: 12px 0 16px 0;
+//           }
+//         }
+//       }
+//     }
+//   }
+
+//   &-title {
+//     font-weight: 700;
+//     font-size: 28px;
+//     line-height: 140%;
+//     padding: 0 0 20px 0;
+//     border-bottom: 1px solid #c5d4e0;
+
+//     @include devices(lg) {
+//       font-size: 24px;
+//     }
+
+//     @include devices(md) {
+//       font-size: 20px;
+//       padding: 0 0 16px 0;
+//     }
+
+//     @include devices(sm) {
+//       font-size: 18px;
+//       padding: 0 0 12px 0;
+//     }
+//   }
+// }
+
+.ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-link-icon, .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-link-icon{
+  color: var(--color-primary-light);
+  font-size: 10px !important;
+}

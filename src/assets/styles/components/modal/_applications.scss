@@ -1,0 +1,38 @@
+.modal_application{
+	.content{
+		&-header{
+			margin-bottom: 24px;
+			&-title{
+				h3{
+					font-size: 16px;
+					font-weight: 600;
+					line-height: 24px;
+					color: var(--color-text);	
+				}
+			}
+			&-status{
+					font-size: 14px;
+					font-weight: 400;
+					line-height: 20px;
+					color: var(--color-text);	
+			}
+		}
+		&-inputs{
+			margin-bottom: 24px;
+		}
+	}
+	.ant-modal{
+		&-content{
+			padding: 24px 32px;
+		}
+		&-body, &-footer{
+			padding: 0;
+		}
+		&-body{
+			margin-bottom: 24px;
+		}
+		&-footer{
+			border-top: unset;
+		}
+	}
+}
