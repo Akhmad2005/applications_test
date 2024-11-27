@@ -1,16 +1,14 @@
-<script lang="ts">
-// @ts-ignore
+<script>
 import { mapState, mapGetters, mapActions } from "vuex";
 import { formatDate } from "@/utilities/functions";
 import { ref } from "vue";
-// @ts-ignore
 import ApplicationModal from "@/components/modal/apllication.vue";
 
 export default {
   components: { ApplicationModal },
   data() {
     return {
-      timeoutId: ref<NodeJS.Timeout | null>(null),
+      timeoutId: null,
       columns: [
         {
           title: "№",
@@ -23,13 +21,13 @@ export default {
           title: "Создана",
           dataIndex: "created_at",
           key: "created_at",
-          customRender(text: string) {
+          customRender(text) {
             return formatDate(text, false);
           },
         },
         {
           title: "Адрес",
-          customRender(record: any, index: number) {
+          customRender(record, index) {
             return `${record?.premise?.address || ""} ${
               record?.apartment?.label || ""
             }`;
@@ -40,7 +38,7 @@ export default {
           title: "Заявитель",
           key: "applicant",
           dataIndex: "applicant",
-          customRender(text: any) {
+          customRender(text) {
             return `${text?.last_name || ""}
             ${text?.first_name?.[0] ? text?.first_name?.[0] + "." : ""}
             ${
@@ -57,7 +55,7 @@ export default {
           title: "Срок",
           key: "due_date",
           dataIndex: "due_date",
-          customRender(text: string) {
+          customRender(text) {
             return formatDate(text);
           },
         },
@@ -85,15 +83,15 @@ export default {
   methods: {
     ...mapActions("premises", ["fetchPremises"]),
     ...mapActions("applications", ["fetchApplications"]),
-    handlePaginate(page: number, page_size: number) {
+    handlePaginate(page, page_size) {
       let params = {
         page: page,
         page_size: page_size,
       };
       this.fetchApplications({ params });
     },
-    handleSearchValueChange(event: Event) {
-      const input = event.target as HTMLInputElement;
+    handleSearchValueChange(event) {
+      const input = event.target;
       const search = input.value;
       this.timeoutId && clearTimeout(this.timeoutId);
 
@@ -101,7 +99,7 @@ export default {
         this.fetchApplications({ params: { search } });
       }, 500);
     },
-    handlePremiseSelect(value: string) {
+    handlePremiseSelect(value) {
       this.fetchApplications({ params: { premise_id: value } });
     },
     handleModalCancel() {

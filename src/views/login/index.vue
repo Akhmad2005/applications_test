@@ -1,19 +1,8 @@
-<script lang="ts">
+<script>
 import axios from "@/plugins/axios";
-import type { AxiosResponse } from "axios";
-import { AxiosError } from "axios";
-
-interface ComponentData {
-  form: {
-    username: string;
-    password: string;
-  };
-  passwordInputType: "password" | "text";
-  loading: boolean;
-}
 
 export default {
-  data(): ComponentData {
+  data() {
     return {
       form: {
         username: "",
@@ -45,13 +34,13 @@ export default {
       }
       this.loading = false;
     },
-    catchAxiosError(error: AxiosError) {
+    catchAxiosError(error) {
       this.$message.error(
-        (error?.response?.data as any)?.data?.non_field_errors?.[0] ||
+        error?.response?.data?.data?.non_field_errors?.[0] ||
           "Увы, произошла ошибка"
       );
     },
-    finishSuccessfulLogin(response: AxiosResponse) {
+    finishSuccessfulLogin(response) {
       if (response?.data?.key) {
         localStorage.setItem("authToken", response.data.key);
         this.form.password = "";

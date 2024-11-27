@@ -12,7 +12,7 @@ export default {
   },
   data() {
     return {
-      svgContent: null,
+      svgContent: "",
     };
   },
   watch: {
@@ -25,7 +25,7 @@ export default {
           });
         } else {
           console.error(`SVG not found: ${newName}`);
-          this.svgContent = null;
+          this.svgContent = "";
         }
       },
     },

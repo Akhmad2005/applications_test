@@ -1,5 +1,4 @@
-<script lang="ts">
-// @ts-ignore
+<script>
 import ru_RU from "ant-design-vue/es/locale/ru_RU";
 
 export default {
