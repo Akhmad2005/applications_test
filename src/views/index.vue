@@ -83,6 +83,7 @@ export default {
     ...mapGetters("premises", ["premises"]),
   },
   methods: {
+    ...mapActions("premises", ["fetchPremises"]),
     ...mapActions("applications", ["fetchApplications"]),
     handlePaginate(page: number, page_size: number) {
       let params = {
@@ -107,12 +108,18 @@ export default {
       this.applicatonModal.visible = false;
       this.applicatonModal.appeal = null;
     },
+    handleModalSuccess() {
+      this.applicatonModal.visible = false;
+      this.applicatonModal.appeal = null;
+      this.fetchApplications();
+    },
     handleApplicationCreate() {
       this.applicatonModal.visible = true;
       this.applicatonModal.appeal = null;
     },
   },
   mounted() {
+    this.fetchPremises({ params: { page_size: 10000 } });
     this.fetchApplications();
   },
 };
@@ -166,8 +173,11 @@ export default {
                       premises.map((p) => ({
                         value: p.id,
                         label: p.full_address,
+                        title: p.full_address,
                       }))
                     "
+                    showSearch
+                    optionFilterProp="title"
                     @change="handlePremiseSelect"
                     style="width: 100%"
                     placeholder="Дом"
@@ -214,8 +224,10 @@ export default {
       </div>
       <ApplicationModal
         :appeal="applicatonModal.appeal"
+        v-if="applicatonModal.visible"
         :visible="applicatonModal.visible"
         @cancel="handleModalCancel"
+        @success="handleModalSuccess"
       ></ApplicationModal>
     </main>
   </div>

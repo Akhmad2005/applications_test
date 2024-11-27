@@ -120,21 +120,28 @@ export default {
     ...mapGetters("apartments", ["apartments"]),
   },
   watch: {
-    "form.premise_id"(id) {
-      this.fetchApartments({ params: { premise_id: id, pageSize: 10000 } });
+    appeal: {
+      handler(appeal) {
+        if (appeal?.id) {
+          this.form.apartment_id =
+            appeal?.apartment?.id || baseForm.apartment_id;
+          this.form.premise_id = appeal?.premise?.id || baseForm.premise_id;
+          this.form.due_date = appeal?.due_date || baseForm.due_date;
+          this.form.description = appeal?.description || baseForm.description;
+          this.form.applicant = appeal?.applicant || baseForm.applicant;
+          this.form.status_id = appeal?.status.id || baseForm.status_id;
+          this.form.id = appeal?.id || undefined;
+        } else {
+          this.form = { ...baseForm };
+        }
+      },
+      immediate: true,
     },
-    appeal(appeal) {
-      if (appeal?.id) {
-        this.form.apartment_id = appeal?.apartment?.id || baseForm.apartment_id;
-        this.form.premise_id = appeal?.premise?.id || baseForm.premise_id;
-        this.form.due_date = appeal?.due_date || baseForm.due_date;
-        this.form.description = appeal?.description || baseForm.description;
-        this.form.applicant = appeal?.applicant || baseForm.applicant;
-        this.form.status_id = appeal?.status.id || baseForm.status_id;
-        this.form.id = appeal?.id || undefined;
-      } else {
-        this.form = { ...baseForm };
-      }
+    "form.premise_id": {
+      handler(id) {
+        this.fetchApartments({ params: { premise_id: id, pageSize: 10000 } });
+      },
+      immediate: true,
     },
   },
   methods: {
@@ -143,10 +150,18 @@ export default {
     handleSubmit() {
       this.$refs.ruleForm.validate((valid) => {
         if (valid) {
-          if (this.appeal?.id) {
-            this.updateApplication({ id: this.appeal?.id, form: this.form });
-          } else {
-            this.createApplication({ form: this.form });
+          try {
+            if (this.appeal?.id) {
+              let { status_id, ...form } = this.form;
+              this.updateApplication({ id: this.appeal?.id, form });
+            } else {
+              this.createApplication({
+                form: { ...this.form },
+              });
+            }
+            this.$emit("success");
+          } catch (error) {
+            console.error("error submit", error);
           }
         } else {
           console.log("error submit!!");
@@ -273,19 +288,18 @@ export default {
                   :class="{ active: form.due_date }"
                 >
                   <a-date-picker
-                    placeholder="Срок"
                     @change="handleDueDateChange"
                     style="width: 100%"
                     showTime
-                    :value="form.due_date"
                     format="DD.MM.YYYY HH:mm"
                   >
-                    <!-- <a-input
+                    <a-input
+                      placeholder="Срок"
                       :value="
                         form.due_date ? this.formatDate(form.due_date) : ''
                       "
                     >
-                    </a-input> -->
+                    </a-input>
                     <template #suffixIcon></template>
                   </a-date-picker>
                   <span class="ant-my-placeholder"> Срок </span>

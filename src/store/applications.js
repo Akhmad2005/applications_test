@@ -1,4 +1,5 @@
 import axios from "@/plugins/axios";
+import { message } from "ant-design-vue";
 
 const state = {
   applications: [],
@@ -58,15 +59,23 @@ const actions = {
 					`/api/appeals/v1.0/appeals/`, 
 					{...form}
 				)
-        const { status, message, data } = res
+        const { status, data } = res
         if (status) {
           resolve(data)
-        } else {
-          reject((message && message[ i18n ]) || message)
-          return
         }
+        message.success('Заявка успешно создана');
       } catch (e) {
+        console.error(e);
         reject(e && e.response && e.response.data && e.response.data.error)
+        if (!Object.keys(form).some(key => e?.response?.data?.data?.[key]?.[0])) {
+          message.error(e?.response?.data?.detail || 'Произошла ошибка при создании заявки');
+        } else {
+          Object.keys(form).forEach(k => {
+            if (e?.response?.data?.data?.[k]?.[0]) {
+              message.error(e?.response?.data?.data?.[k]?.[0])
+            }
+          })
+        }
       } 
     })
   },
@@ -75,17 +84,25 @@ const actions = {
       try {
         const res = await axios.patch(
 					`/api/appeals/v1.0/appeals/${id}/`, 
-					{ data: form }
+					{...form}
 				)
-        const { status, message, data } = res
+        const { status, data } = res
         if (status) {
           resolve(data)
-        } else {
-          reject((message && message[ i18n ]) || message)
-          return
-        }
+        } 
+        message.success('Заявка успешно измененено');
       } catch (e) {
+        console.error(e);
         reject(e && e.response && e.response.data && e.response.data.error)
+        if (!Object.keys(form).some(key => e?.response?.data?.data?.[key]?.[0])) {
+          message.error(e?.response?.data?.detail || 'Произошла ошибка при изменение заявки');
+        } else {
+          Object.keys(form).forEach(k => {
+            if (e?.response?.data?.data?.[k]?.[0]) {
+              message.error(e?.response?.data?.data?.[k]?.[0])
+            }
+          })
+        }
       } 
     })
   },

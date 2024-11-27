@@ -76,13 +76,15 @@ export default {
       <a-col>
         <a-space>
           <a-icon
+            title="Предыдущие 5"
             class="double-icon"
-            :class="{ disabled: current == 1 }"
             type="double-left"
             @click="
               () => {
-                if (current !== 1) {
+                if (current <= 5) {
                   handlePaginate(1, pageSize);
+                } else {
+                  handlePaginate(current - 5, pageSize);
                 }
               }
             "
@@ -95,13 +97,15 @@ export default {
           >
           </a-pagination>
           <a-icon
-            :class="{ disabled: current == Math.ceil(total / pageSize) }"
+            title="Следующие 5"
             class="double-icon"
             type="double-right"
             @click="
               () => {
-                if (current !== Math.ceil(total / pageSize)) {
+                if (current + 5 > Math.ceil(total / pageSize)) {
                   handlePaginate(Math.ceil(total / pageSize), pageSize);
+                } else {
+                  handlePaginate(current + 5, pageSize);
                 }
               }
             "
